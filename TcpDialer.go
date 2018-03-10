@@ -22,7 +22,7 @@ func main() {
 	wg.Add(1)
 	quit := make(chan interface{})
 	listener, err := net.ListenTCP("tcp4", tcpAddr)
-	fmt.Printf("Created Listener with errcode %v\n", err)
+	handleErr("Error creating Server Listener", err)
 	go server(*listener, quit)
 	go client()
 	go client()
@@ -33,8 +33,9 @@ func main() {
 
 func client() {
 	tcpaddr, err := net.ResolveTCPAddr("tcp4", "localhost:1201")
-	fmt.Println("err resolve tcpaddr: ", err)
+	handleErr("Couldn´´ resolve Address: ", err)
 	conn, err := net.DialTCP("tcp4", nil, tcpaddr)
+	defer conn.Close()
 	fmt.Println(err)
 	pn := person.Person_Name{Family: "wöhrle", Personal: "pers"}
 	pe := person.Person_Email{Kind: "job", Address: "cw@gm.com"}
@@ -45,7 +46,7 @@ func client() {
 	fmt.Println("protobuf", out)
 	i, err := conn.Write([]byte(out))
 	fmt.Println("protobuf rausgeschrieben", i, err)
-	conn.Close()
+
 }
 
 func server(listener net.TCPListener, quit <-chan interface{}) {
@@ -57,12 +58,8 @@ func server(listener net.TCPListener, quit <-chan interface{}) {
 			return
 
 		default:
-			fmt.Printf("default \n")
 
 		}
-		//listener.SetDeadline(time.Now().Add(2 * time.Second))
-		fmt.Printf("Get Connection ... \n")
-
 		lConn, err := listener.AcceptTCP()
 		handleErr("Got connection", err)
 		var read [512]byte
@@ -70,10 +67,7 @@ func server(listener net.TCPListener, quit <-chan interface{}) {
 		n, err := lConn.Read(read[0:])
 
 		//read, err := ioutil.ReadAll(lconn)
-		fmt.Println("Protobuf gelesen: ", n, err)
-
-		fmt.Println("Protobuf gelesen: ", string(read[0:]))
-
+		fmt.Println("ReadProtobuf from Server, #bytes: ", n, read)
 		pb := person.Person{}
 		proto.Unmarshal(read[0:], &pb)
 		fmt.Printf("PB: %v\n", pb)
