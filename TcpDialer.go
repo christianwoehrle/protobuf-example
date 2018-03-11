@@ -4,9 +4,10 @@ import (
 	"fmt"
 	"net"
 	"sync"
-	"time"
 
 	"os"
+
+	"time"
 
 	"github.com/christianwoehrle/tcpidaler/person"
 	"github.com/golang/protobuf/proto"
@@ -14,26 +15,32 @@ import (
 
 func main() {
 
-	fmt.Printf("start: %d\n", 2018)
-
 	tcpAddr, err := net.ResolveTCPAddr("tcp", ":1201")
-	//listener, err := net.ListenTCP("tcp", tcpAddr)
-	wg := sync.WaitGroup{}
-	wg.Add(1)
+	handleErr("Cannot Resove TCPAddr", err)
+	serverReadyWG := sync.WaitGroup{}
+	serverReadyWG.Add(1)
 	quit := make(chan interface{})
-	listener, err := net.ListenTCP("tcp4", tcpAddr)
-	handleErr("Error creating Server Listener", err)
-	go server(*listener, quit)
-	go client()
-	go client()
-	go client()
-	time.Sleep(3 * time.Second)
-	wg.Wait()
+
+	go server(tcpAddr, quit, &serverReadyWG)
+
+	serverReadyWG.Wait()
+
+	fmt.Printf("server ready passed")
+	clientDoneWg := sync.WaitGroup{}
+	for i := 1; i < 10; i++ {
+		clientDoneWg.Add(1)
+		go client(&clientDoneWg)
+
+	}
+	clientDoneWg.Wait()
+	close(quit)
+	time.Sleep(1 * time.Second)
+	fmt.Println("und raus")
 }
 
-func client() {
+func client(clientDoneWg *sync.WaitGroup) {
 	tcpaddr, err := net.ResolveTCPAddr("tcp4", "localhost:1201")
-	handleErr("Couldn´´ resolve Address: ", err)
+	handleErr("Couldn´t resolve Address: ", err)
 	conn, err := net.DialTCP("tcp4", nil, tcpaddr)
 	defer conn.Close()
 	fmt.Println(err)
@@ -46,19 +53,25 @@ func client() {
 	fmt.Println("protobuf", out)
 	i, err := conn.Write([]byte(out))
 	fmt.Println("protobuf rausgeschrieben", i, err)
+	clientDoneWg.Done()
 
 }
 
-func server(listener net.TCPListener, quit <-chan interface{}) {
-
+func server(tcpAddr *net.TCPAddr, quit <-chan interface{}, serverReadyWg *sync.WaitGroup) {
+	fmt.Printf("start server")
+	listener, err := net.ListenTCP("tcp4", tcpAddr)
+	handleErr("Error creating Server Listener", err)
+	fmt.Printf("server ready")
+	serverReadyWg.Done()
 	for {
 
 		select {
 		case <-quit:
+			fmt.Println("quit")
 			return
 
 		default:
-
+			fmt.Printf("default")
 		}
 		lConn, err := listener.AcceptTCP()
 		handleErr("Got connection", err)
