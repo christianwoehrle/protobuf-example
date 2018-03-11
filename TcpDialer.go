@@ -25,16 +25,16 @@ func main() {
 
 	serverReadyWG.Wait()
 
-	fmt.Printf("server ready passed")
 	clientDoneWg := sync.WaitGroup{}
-	for i := 1; i < 10; i++ {
+	for i := 1; i < 100; i++ {
+		fmt.Println(i)
 		clientDoneWg.Add(1)
 		go client(&clientDoneWg)
 
 	}
 	clientDoneWg.Wait()
-	close(quit)
 	time.Sleep(1 * time.Second)
+	close(quit)
 	fmt.Println("und raus")
 }
 
@@ -42,26 +42,34 @@ func client(clientDoneWg *sync.WaitGroup) {
 	tcpaddr, err := net.ResolveTCPAddr("tcp4", "localhost:1201")
 	handleErr("Couldn´t resolve Address: ", err)
 	conn, err := net.DialTCP("tcp4", nil, tcpaddr)
+	handleErr("Cannot Dial Server", err)
 	defer conn.Close()
-	fmt.Println(err)
-	pn := person.Person_Name{Family: "wöhrle", Personal: "pers"}
+	pn := person.Person_Name{Family: "woehrle", Personal: "pers"}
 	pe := person.Person_Email{Kind: "job", Address: "cw@gm.com"}
 	pes := []*person.Person_Email{&pe}
 	p := person.Person{Name: &pn, Email: pes}
-
 	out, err := proto.Marshal(&p)
-	fmt.Println("protobuf", out)
-	i, err := conn.Write([]byte(out))
-	fmt.Println("protobuf rausgeschrieben", i, err)
+	handleErr("Client Cannot Marshal Person", err)
+	conn.Write(out)
+	handleErr("Client Cannot Write to Server", err)
+
+	var read [512]byte
+	n, err := conn.Read(read[0:])
+	handleErr("Client cannot read Response", err)
+	//fmt.Println(read)
+	pb := person.Person{}
+	err = proto.Unmarshal(read[0:n], &pb)
+	handleErr("Client Cannot Unmarshal", err)
+	conn.Close()
+	//fmt.Printf("PB: %v\n", pb)
+	fmt.Println("client done")
 	clientDoneWg.Done()
 
 }
 
 func server(tcpAddr *net.TCPAddr, quit <-chan interface{}, serverReadyWg *sync.WaitGroup) {
-	fmt.Printf("start server")
 	listener, err := net.ListenTCP("tcp4", tcpAddr)
 	handleErr("Error creating Server Listener", err)
-	fmt.Printf("server ready")
 	serverReadyWg.Done()
 	for {
 
@@ -71,20 +79,33 @@ func server(tcpAddr *net.TCPAddr, quit <-chan interface{}, serverReadyWg *sync.W
 			return
 
 		default:
-			fmt.Printf("default")
+
 		}
 		lConn, err := listener.AcceptTCP()
 		handleErr("Got connection", err)
-		var read [512]byte
 
+		var read [512]byte
 		n, err := lConn.Read(read[0:])
 
-		//read, err := ioutil.ReadAll(lconn)
-		fmt.Println("ReadProtobuf from Server, #bytes: ", n, read)
+		//fmt.Println("Server Read: ", n, read)
+		handleErr("Cannot Read Answer", err)
 		pb := person.Person{}
-		proto.Unmarshal(read[0:], &pb)
-		fmt.Printf("PB: %v\n", pb)
-		//lConn.Close()
+		proto.Unmarshal(read[0:n], &pb)
+
+		//fmt.Println("Server person", pb)
+
+		pn := person.Person_Name{Family: "woehrle", Personal: "pers"}
+		pe := person.Person_Email{Kind: "job", Address: "cw@gm.com"}
+		pes := []*person.Person_Email{&pe}
+		p := person.Person{Name: &pn, Email: pes}
+
+		out, err := proto.Marshal(&p)
+		handleErr("Client Cannot Marshal Person", err)
+		lConn.Write(out)
+		//fmt.Println("Server wrote", out)
+		handleErr("Client Cannot Write to Server", err)
+		fmt.Println("close")
+		lConn.Close()
 	}
 }
 
