@@ -1,5 +1,9 @@
 package main
 
+// Simple program that uses protobuf strctures but not the protobuf messages
+// tcp listener is set up, accepting connection request and handling the data messages (just echoing)
+//
+
 import (
 	"fmt"
 	"net"
@@ -9,7 +13,7 @@ import (
 
 	"time"
 
-	"github.com/christianwoehrle/tcpidaler/person"
+	"github.com/christianwoehrle/protobuf-example/person"
 	"github.com/golang/protobuf/proto"
 )
 
