@@ -15,3 +15,12 @@ message Person {
     repeated Email email = 2;
 
 }
+
+message PersonList {
+    repeated Person persons = 1;
+}
+
+
+service PersonService {
+  rpc Echo(Person) returns (Person) {}
+}
