@@ -7,14 +7,12 @@ package main
 import (
 	"fmt"
 	"net"
-	"sync"
-
 	"os"
-
+	"sync"
 	"time"
 
 	"github.com/christianwoehrle/protobuf-example/person"
-	"github.com/golang/protobuf/proto"
+	"github.com/gogo/protobuf/proto"
 )
 
 func main() {
