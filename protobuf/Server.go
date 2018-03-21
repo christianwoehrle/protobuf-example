@@ -5,7 +5,9 @@ package main
 //
 
 import (
+	"context"
 	"fmt"
+	"log"
 	"net"
 
 	"os"
@@ -13,14 +15,12 @@ import (
 	"time"
 
 	"github.com/christianwoehrle/protobuf-example/person"
-	"github.com/prometheus/log"
-	"golang.org/x/net/context"
 	"google.golang.org/grpc"
 )
 
 type PersonService struct{}
 
-func (p PersonService) Echo(context context.Context, person *person.Person) (*person.Person, error) {
+func (p PersonService) Echo(ctx context.Context, person *person.Person) (*person.Person, error) {
 	return person, nil
 }
 
@@ -52,7 +52,7 @@ func server() {
 	handleErr("Could not Resolve Addr", err)
 	listener, _ := net.ListenTCP("tcp", addr)
 	handleErr("Could not create Listener", err)
-	log.Fatal(srv.Serve(listener))
+	log.Fatalln(srv.Serve(listener))
 }
 
 func handleErr(text string, err error) {
