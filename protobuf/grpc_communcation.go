@@ -31,7 +31,7 @@ func main() {
 
 }
 
-func clientEcho() {
+func clientEcho() (*person.Person, error) {
 	clientConnection, err := grpc.Dial("localhost:8888", grpc.WithInsecure())
 	handleErr("Could not Dial grpc", err)
 	client := person.NewPersonServiceClient(clientConnection)
@@ -41,7 +41,7 @@ func clientEcho() {
 	pes := []*person.Person_Email{&pe}
 	p := person.Person{Name: &pn, Email: pes}
 	person2, err := client.Echo(context.Background(), &p, grpc.FailFast(true))
-	fmt.Println(person2, err)
+	return person2, err
 }
 
 func server() {

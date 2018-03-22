@@ -17,13 +17,13 @@ import (
 
 func main() {
 
-	tcpAddr, err := net.ResolveTCPAddr("tcp", ":1201")
+	tcpAddr, err := net.ResolveTCPAddr("tcp", ":8889")
 	handleErr("Cannot Resove TCPAddr", err)
 	serverReadyWG := sync.WaitGroup{}
 	serverReadyWG.Add(1)
 	quit := make(chan interface{})
 
-	go server(tcpAddr, quit, &serverReadyWG)
+	go serverTcp(tcpAddr, quit, &serverReadyWG)
 
 	serverReadyWG.Wait()
 
@@ -31,16 +31,15 @@ func main() {
 	for i := 1; i < 100; i++ {
 		fmt.Println(i)
 		clientDoneWg.Add(1)
-		go client(&clientDoneWg)
+		go clientTcp(&clientDoneWg)
 
 	}
 	clientDoneWg.Wait()
 	time.Sleep(1 * time.Second)
 	close(quit)
-	fmt.Println("und raus")
 }
 
-func client(clientDoneWg *sync.WaitGroup) {
+func clientTcp(clientDoneWg *sync.WaitGroup) {
 	tcpaddr, err := net.ResolveTCPAddr("tcp4", "localhost:1201")
 	handleErr("Couldn´t resolve Address: ", err)
 	conn, err := net.DialTCP("tcp4", nil, tcpaddr)
@@ -63,13 +62,12 @@ func client(clientDoneWg *sync.WaitGroup) {
 	err = proto.Unmarshal(read[0:n], &pb)
 	handleErr("Client Cannot Unmarshal", err)
 	conn.Close()
-	//fmt.Printf("PB: %v\n", pb)
-	fmt.Println("client done")
 	clientDoneWg.Done()
 
 }
 
-func server(tcpAddr *net.TCPAddr, quit <-chan interface{}, serverReadyWg *sync.WaitGroup) {
+func serverTcp(tcpAddr *net.TCPAddr, quit <-chan interface{}, serverReadyWg *sync.WaitGroup) {
+	fmt.Println("called serverTcp")
 	listener, err := net.ListenTCP("tcp4", tcpAddr)
 	handleErr("Error creating Server Listener", err)
 	serverReadyWg.Done()
@@ -104,9 +102,7 @@ func server(tcpAddr *net.TCPAddr, quit <-chan interface{}, serverReadyWg *sync.W
 		out, err := proto.Marshal(&p)
 		handleErr("Client Cannot Marshal Person", err)
 		lConn.Write(out)
-		//fmt.Println("Server wrote", out)
 		handleErr("Client Cannot Write to Server", err)
-		fmt.Println("close")
 		lConn.Close()
 	}
 }

@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/tcp/TcpDialer.go" line="80" mnemonic="7" />
+    <bookmark url="file://$PROJECT_DIR$/tcp/tcp_communication.go" line="78" mnemonic="7" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="748f6bc8-7b67-4ef2-ae21-918dd2acf805" name="Default" comment="refactoring">
+      <change beforePath="" afterPath="$PROJECT_DIR$/protobuf/grpc_communcation_test.go" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/tcp/tcp_communcation_test.go" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/protobuf/Server.go" afterPath="$PROJECT_DIR$/protobuf/grpc_communcation.go" />
+      <change beforePath="$PROJECT_DIR$/tcp/TcpDialer.go" afterPath="$PROJECT_DIR$/tcp/tcp_communication.go" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -36,7 +40,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="README.md" pinned="false" current-in-tab="true">
+      <file leaf-file-name="README.md" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
@@ -71,11 +75,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TcpDialer.go" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/tcp/TcpDialer.go">
+      <file leaf-file-name="tcp_communication.go" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/tcp/tcp_communication.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="780">
-              <caret line="52" column="21" lean-forward="false" selection-start-line="52" selection-start-column="16" selection-end-line="52" selection-end-column="21" />
+            <state relative-caret-position="372">
+              <caret line="64" column="4" lean-forward="false" selection-start-line="64" selection-start-column="4" selection-end-line="64" selection-end-column="4" />
               <folding>
                 <element signature="e#197#333#0" expanded="true" />
               </folding>
@@ -93,14 +97,36 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Server.go" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/protobuf/Server.go">
+      <file leaf-file-name="grpc_communcation.go" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/protobuf/grpc_communcation.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-274">
-              <caret line="22" column="31" lean-forward="false" selection-start-line="22" selection-start-column="31" selection-end-line="22" selection-end-column="31" />
+            <state relative-caret-position="106">
+              <caret line="43" column="0" lean-forward="false" selection-start-line="43" selection-start-column="0" selection-end-line="43" selection-end-column="0" />
               <folding>
                 <element signature="e#197#337#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="grpc_communcation_test.go" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/protobuf/grpc_communcation_test.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="390">
+              <caret line="26" column="54" lean-forward="true" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="54" />
+              <folding>
+                <element signature="e#14#91#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="tcp_communcation_test.go" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/tcp/tcp_communcation_test.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="55">
+              <caret line="9" column="52" lean-forward="false" selection-start-line="9" selection-start-column="52" selection-end-line="9" selection-end-column="52" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -129,9 +155,12 @@
       <find>client</find>
       <find>tcpAddr</find>
       <find>log</find>
-      <find>proto</find>
       <find>context</find>
+      <find>proto</find>
       <find>conte</find>
+      <find>Liste</find>
+      <find>serverTcp</find>
+      <find>server</find>
     </findStrings>
   </component>
   <component name="GOROOT" path="/usr/local/Cellar/go/1.9.3/libexec" />
@@ -149,6 +178,10 @@
         <option value="$PROJECT_DIR$/LICENSE" />
         <option value="$PROJECT_DIR$/.circleci/config.yml" />
         <option value="$PROJECT_DIR$/README.md" />
+        <option value="$PROJECT_DIR$/protobuf/grpc_coomuncation.go" />
+        <option value="$PROJECT_DIR$/protobuf/grpc_coomuncation_test.go" />
+        <option value="$PROJECT_DIR$/tcp/tcp_communcation_test.go" />
+        <option value="$PROJECT_DIR$/tcp/tcp_communication.go" />
       </list>
     </option>
   </component>
@@ -321,11 +354,12 @@
     <property name="SearchEverywhereHistoryKey" value="golang.org/x/text&#9;FILE&#9;file:///Users/cwoehrle/go/src/golang.org/x/text/internal/testtext/text.go" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/protobuf" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/tcp" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/tcp" />
+      <recent name="$PROJECT_DIR$/protobuf" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -340,13 +374,13 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Go Build.protbuf-rpc">
+  <component name="RunManager" selected="Go Test.bench">
     <configuration name="protbuf-rpc" type="GoApplicationRunConfiguration" factoryName="Go Application">
       <module name="tcpidaler" />
       <working_directory value="$PROJECT_DIR$/protobuf" />
       <go_parameters value="-i" />
       <kind value="FILE" />
-      <filePath value="$PROJECT_DIR$/protobuf/Server.go" />
+      <filePath value="$PROJECT_DIR$/protobuf/grpc_coomuncation.go" />
       <directory value="$PROJECT_DIR$/" />
     </configuration>
     <configuration name="tcpserver" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true">
@@ -354,16 +388,38 @@
       <working_directory value="$PROJECT_DIR$/tcp" />
       <go_parameters value="-i" />
       <kind value="FILE" />
-      <filePath value="$PROJECT_DIR$/tcp/TcpDialer.go" />
+      <filePath value="$PROJECT_DIR$/tcp/tcp_communication.go" />
       <package value="github.com/christianwoehrle/tcpidaler" />
       <directory value="$PROJECT_DIR$/" />
       <method>
         <option name="GoBeforeRunTask" enabled="true" command="fmt" />
       </method>
     </configuration>
-    <list size="2">
+    <configuration name="bench" type="GoTestRunConfiguration" factoryName="Go Test">
+      <module name="tcpidaler" />
+      <working_directory value="$PROJECT_DIR$/" />
+      <go_parameters value="-i" />
+      <framework value="gobench" />
+      <kind value="DIRECTORY" />
+      <package value="github.com/christianwoehrle/protobuf-example" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+    </configuration>
+    <configuration name="test" type="GoTestRunConfiguration" factoryName="Go Test">
+      <module name="tcpidaler" />
+      <working_directory value="$PROJECT_DIR$/" />
+      <go_parameters value="-i" />
+      <framework value="gotest" />
+      <kind value="DIRECTORY" />
+      <package value="github.com/christianwoehrle/protobuf-example" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+    </configuration>
+    <list size="4">
       <item index="0" class="java.lang.String" itemvalue="Go Build.protbuf-rpc" />
-      <item index="1" class="java.lang.String" itemvalue="Go Build.tcpserver" />
+      <item index="1" class="java.lang.String" itemvalue="Go Test.test" />
+      <item index="2" class="java.lang.String" itemvalue="Go Test.bench" />
+      <item index="3" class="java.lang.String" itemvalue="Go Build.tcpserver" />
     </list>
     <recent_temporary>
       <list size="1">
@@ -373,6 +429,38 @@
   </component>
   <component name="ShelveChangesManager" show_recycled="false">
     <option name="remove_strategy" value="false" />
+  </component>
+  <component name="TestHistory">
+    <history-entry file="bench - 2018.03.21 at 16h 04m 36s.xml">
+      <configuration name="bench" configurationId="GoTestRunConfiguration" />
+    </history-entry>
+    <history-entry file="bench - 2018.03.21 at 16h 05m 18s.xml">
+      <configuration name="bench" configurationId="GoTestRunConfiguration" />
+    </history-entry>
+    <history-entry file="bench - 2018.03.21 at 16h 05m 29s.xml">
+      <configuration name="bench" configurationId="GoTestRunConfiguration" />
+    </history-entry>
+    <history-entry file="bench - 2018.03.21 at 16h 35m 57s.xml">
+      <configuration name="bench" configurationId="GoTestRunConfiguration" />
+    </history-entry>
+    <history-entry file="bench - 2018.03.21 at 16h 36m 26s.xml">
+      <configuration name="bench" configurationId="GoTestRunConfiguration" />
+    </history-entry>
+    <history-entry file="bench - 2018.03.21 at 16h 38m 03s.xml">
+      <configuration name="bench" configurationId="GoTestRunConfiguration" />
+    </history-entry>
+    <history-entry file="bench - 2018.03.21 at 16h 40m 59s.xml">
+      <configuration name="bench" configurationId="GoTestRunConfiguration" />
+    </history-entry>
+    <history-entry file="bench - 2018.03.21 at 16h 41m 20s.xml">
+      <configuration name="bench" configurationId="GoTestRunConfiguration" />
+    </history-entry>
+    <history-entry file="bench - 2018.03.21 at 16h 42m 02s.xml">
+      <configuration name="bench" configurationId="GoTestRunConfiguration" />
+    </history-entry>
+    <history-entry file="bench - 2018.03.21 at 16h 43m 42s.xml">
+      <configuration name="bench" configurationId="GoTestRunConfiguration" />
+    </history-entry>
   </component>
   <component name="ToolWindowManager">
     <frame x="12" y="23" width="1400" height="833" extended-state="0" />
@@ -385,7 +473,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3298292" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3298292" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39947438" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -416,7 +504,7 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/tcp/TcpDialer.go</url>
+          <url>file://$PROJECT_DIR$/tcp/tcp_communication.go</url>
           <line>33</line>
           <option name="timeStamp" value="6" />
         </line-breakpoint>
@@ -445,7 +533,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tcp/TcpDialer.go">
+    <entry file="file://$PROJECT_DIR$/tcp/tcp_communication.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="480">
           <caret line="32" column="22" lean-forward="false" selection-start-line="32" selection-start-column="22" selection-end-line="32" selection-end-column="22" />
@@ -463,7 +551,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tcp/TcpDialer.go">
+    <entry file="file://$PROJECT_DIR$/tcp/tcp_communication.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -554,32 +642,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tcp/TcpDialer.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="780">
-          <caret line="52" column="21" lean-forward="false" selection-start-line="52" selection-start-column="16" selection-end-line="52" selection-end-column="21" />
-          <folding>
-            <element signature="e#197#333#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/person/personv35.pb.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1522">
           <caret line="136" column="17" lean-forward="false" selection-start-line="136" selection-start-column="17" selection-end-line="136" selection-end-column="17" />
           <folding>
             <element signature="e#260#422#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/protobuf/Server.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-274">
-          <caret line="22" column="31" lean-forward="false" selection-start-line="22" selection-start-column="31" selection-end-line="22" selection-end-column="31" />
-          <folding>
-            <element signature="e#197#337#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -622,6 +690,44 @@
             <folding />
           </first_editor>
           <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/protobuf/grpc_communcation.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="106">
+          <caret line="43" column="0" lean-forward="false" selection-start-line="43" selection-start-column="0" selection-end-line="43" selection-end-column="0" />
+          <folding>
+            <element signature="e#197#337#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tcp/tcp_communcation_test.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="55">
+          <caret line="9" column="52" lean-forward="false" selection-start-line="9" selection-start-column="52" selection-end-line="9" selection-end-column="52" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/protobuf/grpc_communcation_test.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="390">
+          <caret line="26" column="54" lean-forward="true" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="54" />
+          <folding>
+            <element signature="e#14#91#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tcp/tcp_communication.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="372">
+          <caret line="64" column="4" lean-forward="false" selection-start-line="64" selection-start-column="4" selection-end-line="64" selection-end-column="4" />
+          <folding>
+            <element signature="e#197#333#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
