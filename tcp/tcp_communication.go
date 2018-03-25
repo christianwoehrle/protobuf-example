@@ -56,11 +56,11 @@ func clientTcp(clientDoneWg *sync.WaitGroup) {
 
 	var read [512]byte
 	n, err := conn.Read(read[0:])
-	handleErr("Client cannot read Response", err)
+	handleErr("Client can´t read Response", err)
 	//fmt.Println(read)
 	pb := person.Person{}
 	err = proto.Unmarshal(read[0:n], &pb)
-	handleErr("Client Cannot Unmarshal", err)
+	handleErr("Client can´t Unmarshal", err)
 	conn.Close()
 	clientDoneWg.Done()
 
@@ -92,17 +92,10 @@ func serverTcp(tcpAddr *net.TCPAddr, quit <-chan interface{}, serverReadyWg *syn
 		pb := person.Person{}
 		proto.Unmarshal(read[0:n], &pb)
 
-		//fmt.Println("Server person", pb)
-
-		pn := person.Person_Name{Family: "woehrle", Personal: "pers"}
-		pe := person.Person_Email{Kind: "job", Address: "cw@gm.com"}
-		pes := []*person.Person_Email{&pe}
-		p := person.Person{Name: &pn, Email: pes}
-
-		out, err := proto.Marshal(&p)
-		handleErr("Client Cannot Marshal Person", err)
+		out, err := proto.Marshal(&pb)
+		handleErr("Cannot Marshal Person", err)
 		lConn.Write(out)
-		handleErr("Client Cannot Write to Server", err)
+		handleErr("Cannot Write to Client", err)
 		lConn.Close()
 	}
 }
