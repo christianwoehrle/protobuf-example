@@ -14,6 +14,9 @@ import (
 
 	"time"
 
+	"io"
+	"strconv"
+
 	"github.com/christianwoehrle/protobuf-example/person"
 	"google.golang.org/grpc"
 )
@@ -24,10 +27,45 @@ func (p PersonService) Echo(ctx context.Context, person *person.Person) (*person
 	return person, nil
 }
 
+func (p PersonService) GetPersonStream(e *person.Empty, stream person.PersonService_GetPersonStreamServer) error {
+
+	for i := 0; i < 10; i++ {
+		pn := person.Person_Name{Family: "woehrle" + strconv.Itoa(i), Personal: "pers"}
+		pe := person.Person_Email{Kind: "job", Address: "cw@gm.com"}
+		pes := []*person.Person_Email{&pe}
+		p := person.Person{Name: &pn, Email: pes}
+		stream.Send(&p)
+	}
+	return nil
+}
+
 func main() {
 	go server()
 	time.Sleep(1 * time.Second)
 	clientEcho()
+	getPersonStream()
+
+}
+
+func getPersonStream() error {
+	clientConnection, error := grpc.Dial("localhost:8888", grpc.WithInsecure())
+	handleErr("Could not Dial grpc", error)
+	client := person.NewPersonServiceClient(clientConnection)
+
+	stream, err := client.GetPersonStream(context.Background(), &person.Empty{})
+	handleErr("Couldn´´ call GetPersonStream", err)
+	for {
+		p, err := stream.Recv()
+		if err != nil {
+			if err == io.EOF {
+				break
+			}
+			fmt.Println(err)
+		}
+		fmt.Println(p)
+
+	}
+	return nil
 
 }
 

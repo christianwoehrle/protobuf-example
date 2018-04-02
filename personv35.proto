@@ -19,8 +19,11 @@ message Person {
 message PersonList {
     repeated Person persons = 1;
 }
+message Empty {
 
+}
 
 service PersonService {
   rpc Echo(Person) returns (Person) {}
+  rpc GetPersonStream(Empty) returns (stream Person) {}
 }
