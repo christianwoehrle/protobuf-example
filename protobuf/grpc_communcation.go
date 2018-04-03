@@ -1,32 +1,38 @@
 package main
 
-// Simple program that uses protobuf strctures but not the protobuf messages
-// tcp listener is set up, accepting connection request and handling the data messages (just echoing)
-//
-
 import (
 	"context"
 	"fmt"
+	"io"
 	"log"
 	"net"
-
 	"os"
-
-	"time"
-
-	"io"
 	"strconv"
+	"time"
 
 	"github.com/christianwoehrle/protobuf-example/person"
 	"google.golang.org/grpc"
 )
 
+// Simple program that uses protobuf strctures but not the protobuf messages
+// tcp listener is set up, accepting connection request and handling the data messages (just echoing)
+//
+
+/**
+  The Service that offers the Methods Echo and GetPeronStream via grpc
+*/
 type PersonService struct{}
 
+/**
+  Takes a Person as an argument and copies it back to the sender
+*/
 func (p PersonService) Echo(ctx context.Context, person *person.Person) (*person.Person, error) {
 	return person, nil
 }
 
+/**
+  Sends some Person Pbjects back to the Caller via a Stream
+*/
 func (p PersonService) GetPersonStream(e *person.Empty, stream person.PersonService_GetPersonStreamServer) error {
 
 	for i := 0; i < 10; i++ {
@@ -48,8 +54,8 @@ func main() {
 }
 
 func getPersonStream() error {
-	clientConnection, error := grpc.Dial("localhost:8888", grpc.WithInsecure())
-	handleErr("Could not Dial grpc", error)
+	clientConnection, err := grpc.Dial("localhost:8888", grpc.WithInsecure())
+	handleErr("Could not Dial grpc", err)
 	client := person.NewPersonServiceClient(clientConnection)
 
 	stream, err := client.GetPersonStream(context.Background(), &person.Empty{})
