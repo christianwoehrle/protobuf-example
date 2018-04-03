@@ -19,19 +19,19 @@ import (
 //
 
 /**
-  The Service that offers the Methods Echo and GetPeronStream via grpc
+  PersonService offers the Methods Echo and GetPeronStream via grpc
 */
 type PersonService struct{}
 
 /**
-  Takes a Person as an argument and copies it back to the sender
+  Echo takes a Person as an argument and copies it back to the sender
 */
 func (p PersonService) Echo(ctx context.Context, person *person.Person) (*person.Person, error) {
 	return person, nil
 }
 
 /**
-  Sends some Person Pbjects back to the Caller via a Stream
+  GetPersonStream sends some Person Objects back to the Caller via a Stream
 */
 func (p PersonService) GetPersonStream(e *person.Empty, stream person.PersonService_GetPersonStreamServer) error {
 
