@@ -76,15 +76,20 @@ func getPersonStream() error {
 }
 
 func clientEcho() (*person.Person, error) {
-	clientConnection, err := grpc.Dial("localhost:8888", grpc.WithInsecure())
-	handleErr("Could not Dial grpc", err)
-	client := person.NewPersonServiceClient(clientConnection)
 
 	pn := person.Person_Name{Family: "woehrle", Personal: "pers"}
 	pe := person.Person_Email{Kind: "job", Address: "cw@gm.com"}
 	pes := []*person.Person_Email{&pe}
 	p := person.Person{Name: &pn, Email: pes}
-	person2, err := client.Echo(context.Background(), &p, grpc.FailFast(true))
+	return clientEcho2(&p)
+}
+
+func clientEcho2(p *person.Person) (*person.Person, error) {
+	clientConnection, err := grpc.Dial("localhost:8888", grpc.WithInsecure())
+	handleErr("Could not Dial grpc", err)
+	client := person.NewPersonServiceClient(clientConnection)
+
+	person2, err := client.Echo(context.Background(), p, grpc.FailFast(true))
 	return person2, err
 }
 

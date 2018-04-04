@@ -7,8 +7,12 @@ import (
 
 	"time"
 
+	"github.com/christianwoehrle/protobuf-example/person"
 	"github.com/stretchr/testify/assert"
+	"strconv"
 )
+
+//var update = flag.Bool("update", false, "update golden files")
 
 func TestGrpcCall(t *testing.T) {
 
@@ -18,6 +22,21 @@ func TestGrpcCall(t *testing.T) {
 	//fmt.Println(p)
 
 	assert.Nil(t, err, fmt.Sprint("error when issuing grpc call", p, err))
+}
+
+func TestGrpcCallTable(t *testing.T) {
+
+	pp := []person.Person{{Name: &person.Person_Name{Family: "woehrle", Personal: "pers"}, Email: []*person.Person_Email{{Kind: "job", Address: "cw@gm.com"}}},
+		{Name: &person.Person_Name{Family: "guenther", Personal: "pers"}, Email: []*person.Person_Email{{Kind: "home", Address: "cw@gmailm.com"}}}}
+
+	for i, p := range pp {
+		t.Run(strconv.Itoa(i)+"_"+p.Name.Family, func(t *testing.T) {
+			result, err := clientEcho2(&p)
+			assert.Nil(t, err, fmt.Sprint("error when issuing grpc call", result, err))
+			assert.EqualValues(t, &p, result, "Echoed Person not the same")
+
+		})
+	}
 }
 
 func BenchmarkGrpcCall(b *testing.B) {
