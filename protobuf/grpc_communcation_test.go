@@ -9,6 +9,7 @@ import (
 
 	"github.com/christianwoehrle/protobuf-example/person"
 	"github.com/stretchr/testify/assert"
+	"os"
 	"strconv"
 )
 
@@ -24,7 +25,12 @@ func TestGrpcCall(t *testing.T) {
 	assert.Nil(t, err, fmt.Sprint("error when issuing grpc call", p, err))
 }
 
+func TestMain(m *testing.M) {
+	fmt.Println("First--------------------------- TestMain setup")
+	os.Exit(m.Run())
+}
 func TestGrpcCallTable(t *testing.T) {
+	t.Helper()
 
 	pp := []person.Person{{Name: &person.Person_Name{Family: "woehrle", Personal: "pers"}, Email: []*person.Person_Email{{Kind: "job", Address: "cw@gm.com"}}},
 		{Name: &person.Person_Name{Family: "guenther", Personal: "pers"}, Email: []*person.Person_Email{{Kind: "home", Address: "cw@gmailm.com"}}}}
