@@ -26,7 +26,7 @@ func TestGrpcCall(t *testing.T) {
 }
 
 func TestMain(m *testing.M) {
-	fmt.Println("First--------------------------- TestMain setup")
+	fmt.Println("First--------------------------- TestMain setupjk")
 	os.Exit(m.Run())
 }
 func TestGrpcCallTable(t *testing.T) {
@@ -39,7 +39,7 @@ func TestGrpcCallTable(t *testing.T) {
 		t.Run(strconv.Itoa(i)+"_"+p.Name.Family, func(t *testing.T) {
 			result, err := clientEcho2(&p)
 			assert.Nil(t, err, fmt.Sprint("error when issuing grpc call", result, err))
-			assert.EqualValues(t, &p, result, "Echoed Person not the same")
+			assert.EqualValues(t, p.TestString(), result.TestString(), "Echoed Person not the same")
 
 		})
 	}
